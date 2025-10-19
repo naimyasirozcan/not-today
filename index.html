@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,61 +8,112 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&family=Roboto:ital,wght@0,100..900;1,100..900&family=Tagesschrift&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&family=Roboto:ital,wght@0,100..900;1,100..900&family=Tagesschrift&display=swap"
+        rel="stylesheet">
+
 </head>
+
 <body>
 
-    <div id="start-menu">
-        <p id="music-switch-start-menu"><span id="music-text-start-menu" class="btn">music:</span> <span id="music-state-start-menu">on</span></p>
+    <!--*** START SCREEN ***-->
 
-        <p id="start-menu-latest-title">latest score:</p>
-        <p id="start-menu-latest-score">000000</p>
-        <p id="start-menu-high-title">high score:</p>
-        <p id="start-menu-high-score">000000</p>
+    <div id="start-screen">
+        <!-- music switch on/off -->
+        <p id="music-switch-start-screen" class="align-between"><span id="music-text-start-screen"
+                class="btn text-sm text-white stroke-dark-blue">music:</span> <span id="music-state-start-screen"
+                class="text-sm text-white stroke-blue">off</span></p>
 
+        <!-- latest score & high score -->
+        <p id="start-menu-high-title" class="text-lg text-navy stroke-orange">high score:</p>
+        <p id="start-menu-high-score" class="text-lg text-black stroke-orange">000000</p>
+        <p id="start-menu-latest-title" class="text-lg text-navy stroke-orange">latest score:</p>
+        <p id="start-menu-latest-score" class="text-lg text-black stroke-orange">000000</p>
+
+        <!-- start btn  -->
         <img src="/assets/img/start-btn.png" alt="click to start" id="start-button" class="btn">
-        <img src="/assets/img/not-today-logo.png" alt="">
 
-        <p id="nyogames-text">
+        <!-- game logo -->
+        <a href="https://github.com/naimyasirozcan/not-today"><img id="game-logo" class="btn" src="/assets/img/not-today-logo.png" alt=""></a>
+
+        <!-- nyo games sign -->
+        <p id="nyogames-text" class="text-white text-md">
             made by
             <br>
             nyogames
         </p>
 
-        <img src="/assets/img/sun-glasses-emoji.png" alt="" id="suglasses-emoji">
+        <img src="/assets/img/sun-glasses-emoji.png" alt="" id="sunglasses-emoji" class="btn">
 
-        
+        <a href="https://github.com/naimyasirozcan"><img src="/assets/img/sun-glasses-emoji.png" alt=""
+                id="sunglasses-emoji" class="btn"></a>
+
+
     </div>
+
+    <!-- *** GAME BOX *** -->
 
     <div id="game-box">
-    
-    <div id="game-left-top-bar">
-        <p class="in-game-score-bar"> <span>score:</span> <span id="current-score">000000</span></p>
-        <p class="in-game-score-bar"> <span>latest:</span> <span id="latest-score">000000</span></p>
-        <p class="in-game-score-bar"> <span>high:</span> <span id="high-score">000000</span></p>
 
-        <div id="energy-bar-div"> <img src="/assets/img/energy-bar-icon.png" alt="" class="power-bar-icons">  <div class="power-bars"> <div id="energy-inner-core"></div></div></div>
-        <div id="life-bar-div"> <img src="/assets/img/life-bar-icon.png" alt="" class="power-bar-icons">  <div class="power-bars"> <div id="life-inner-core"></div></div></div>
-        <div id="base-life-bar-div"> <img src="/assets/img/base-life-bar.png" alt="" class="power-bar-icons">  <div class="power-bars"> <div id="base=life-inner-core"></div></div></div>
+        <!-- control panels -->
+
+        <div id="game-left-top-bar">
+            <p class="in-game-score"> <span>score:</span> <span id="current-score">000000</span></p>
+            <p class="in-game-score"> <span>latest:</span> <span id="latest-score">000000</span></p>
+            <p class="in-game-score"> <span>high:</span> <span id="high-score">000000</span></p>
+
+            <div id="energy-bar-div"> <img src="/assets/img/energy-bar-icon.png" alt="" class="power-bar-icons">
+                <div class="power-bars">
+                    <div id="energy-inner-core"></div>
+                </div>
+            </div>
+            <div id="life-bar-div"> <img src="/assets/img/life-bar-icon.png" alt="" class="power-bar-icons">
+                <div class="power-bars">
+                    <div id="life-inner-core"></div>
+                </div>
+            </div>
+            <div id="base-life-bar-div"> <img src="/assets/img/base-life-bar.png" alt="" class="power-bar-icons">
+                <div class="power-bars">
+                    <div id="base=life-inner-core"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-right-top-bar">
+            <p id="music-switch-game-menu"><span id="music-text-game-menu" class="btn">music:</span> <span
+                    id="music-state-game-menu">on</span></p>
+            <p id="fx-switch-game-menu"><span id="fx-text-game-menu" class="btn">sfx:</span> <span
+                    id="fx-state-game-menu">on</span></p>
+        </div>
+
+
+        <!-- collision area -->
+
+        <div id="collision-area">
+
+        </div>
+
+
+        <!-- character area -->
+
+        <div id="character-base">
+
+        </div>
+
+
+
     </div>
 
-    <div id="game-right-top-bar">
-        <p id="music-switch-game-menu"><span id="music-text-game-menu" class="btn">music:</span> <span id="music-state-game-menu">on</span></p>
-        <p id="fx-switch-game-menu"><span id="fx-text-game-menu" class="btn">sfx:</span> <span id="fx-state-game-menu">on</span></p>
-    </div>
+    <!-- *** RESULT SCREEN ***-->
 
-    
-
-    </div>
-
-    <div id="result-page">
+    <div id="result-screen">
 
     </div>
 
 
 
-<script src=""></script>
+    <script src=""></script>
 </body>
+
 </html>
