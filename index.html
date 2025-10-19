@@ -35,7 +35,8 @@
         <img src="/assets/img/start-btn.png" alt="click to start" id="start-button" class="btn">
 
         <!-- game logo -->
-        <a href="https://github.com/naimyasirozcan/not-today"><img id="game-logo" class="btn" src="/assets/img/not-today-logo.png" alt=""></a>
+        <a href="https://github.com/naimyasirozcan/not-today" target="_blank"><img id="game-logo" class="btn"
+                src="/assets/img/not-today-logo.png" alt=""></a>
 
         <!-- nyo games sign -->
         <p id="nyogames-text" class="text-white text-md">
@@ -46,7 +47,7 @@
 
         <img src="/assets/img/sun-glasses-emoji.png" alt="" id="sunglasses-emoji" class="btn">
 
-        <a href="https://github.com/naimyasirozcan"><img src="/assets/img/sun-glasses-emoji.png" alt=""
+        <a href="https://github.com/naimyasirozcan" target="_blank"><img src="/assets/img/sun-glasses-emoji.png" alt=""
                 id="sunglasses-emoji" class="btn"></a>
 
 
@@ -56,41 +57,51 @@
 
     <div id="game-box">
 
-        <!-- control panels -->
+        <!-- collision area -->
 
-        <div id="game-left-top-bar">
-            <p class="in-game-score"> <span>score:</span> <span id="current-score">000000</span></p>
-            <p class="in-game-score"> <span>latest:</span> <span id="latest-score">000000</span></p>
-            <p class="in-game-score"> <span>high:</span> <span id="high-score">000000</span></p>
+        <div id="collision-area">
+
+            <!-- top left board  scores -->
+
+            <p id="current-score-div" class="align-between"> <span class="text-white text-sm stroke-dark-brown">score:</span> <span
+                    id="current-score" class="text-white text-sm stroke-gold">000000</span></p>
+
+            <p id="last-score-div" class="align-between"> <span class="text-white text-sm stroke-dark-brown">last:</span> <span id="last-score" class="text-white text-sm stroke-gold">000000</span></p>
+
+            <p id="high-score-div" class="align-between"> <span class="text-white text-sm stroke-dark-brown">high:</span> <span id="high-score" class="text-white text-sm stroke-gold">000000</span></p>
+
+            <!-- top left board power bars -->
 
             <div id="energy-bar-div"> <img src="/assets/img/energy-bar-icon.png" alt="" class="power-bar-icons">
                 <div class="power-bars">
                     <div id="energy-inner-core"></div>
                 </div>
             </div>
+
             <div id="life-bar-div"> <img src="/assets/img/life-bar-icon.png" alt="" class="power-bar-icons">
                 <div class="power-bars">
                     <div id="life-inner-core"></div>
                 </div>
             </div>
+
             <div id="base-life-bar-div"> <img src="/assets/img/base-life-bar.png" alt="" class="power-bar-icons">
                 <div class="power-bars">
                     <div id="base=life-inner-core"></div>
                 </div>
             </div>
-        </div>
 
-        <div id="game-right-top-bar">
+            <!-- top right board -->
+
             <p id="music-switch-game-menu"><span id="music-text-game-menu" class="btn">music:</span> <span
                     id="music-state-game-menu">on</span></p>
+
             <p id="fx-switch-game-menu"><span id="fx-text-game-menu" class="btn">sfx:</span> <span
                     id="fx-state-game-menu">on</span></p>
-        </div>
 
+            <p id="pause-btn">pause</p>
 
-        <!-- collision area -->
+            <p id="quit-btn">quit</p>
 
-        <div id="collision-area">
 
         </div>
 

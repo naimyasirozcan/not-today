@@ -437,5 +437,62 @@
 
 /* *** GAMEPLAY SCREEN  *** */
 
+#game-box {
+    position: relative;
+    width: 1920px;
+    height: 1080px;
+}
+
+#collision-area {
+    position: relative;
+    width: 1920px;
+    height: 869px;
+    left: 0px;
+    top: 0px;
+    background-image: url(/assets/img/bg-top-collision.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#character-base {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width: 1920px;
+    height: 211px;
+    background-image: url(/assets/img/bg-bottom-char-base.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* game top board left */
+/* scoreboard */
+
+#current-score-div {
+    position: absolute;
+    left: 47px;
+    top: 26px;
+    width: 267px;
+    height: 20px;
+}
+#last-score-div {
+    position: absolute;
+    left: 47px;
+    top: 66px;
+    width: 267px;
+    height: 20px;
+}
+#high-score-div {
+    position: absolute;
+    left: 47px;
+    top: 106px;
+    width: 267px;
+    height: 20px;
+}
+
+/* power bars */
+
 
 /* GAME END SCREEN */ 
