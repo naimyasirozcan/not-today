@@ -1,0 +1,22 @@
+* {
+    font-family: "Press Start 2P", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    cursor: default;
+    user-select: none;
+    /* -webkit-text-stroke: 4px #fff; */
+}
+
+.btn {
+    cursor: pointer;
+}
+
+#start-menu {
+    width: 1920px;
+    height: 1080px;
+    background: url(/assets/img/start-menu-bg.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
