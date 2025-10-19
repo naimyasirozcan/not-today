@@ -63,53 +63,72 @@
 
             <!-- top left board  scores -->
 
-            <p id="current-score-div" class="align-between"> <span class="text-white text-sm stroke-dark-brown">score:</span> <span
-                    id="current-score" class="text-white text-sm stroke-gold">000000</span></p>
+            <p id="current-score-div" class="align-between"> <span
+                    class="text-white text-sm stroke-dark-brown">score:</span> <span id="current-score"
+                    class="text-white text-sm stroke-gold">000000</span></p>
 
-            <p id="last-score-div" class="align-between"> <span class="text-white text-sm stroke-dark-brown">last:</span> <span id="last-score" class="text-white text-sm stroke-gold">000000</span></p>
+            <p id="last-score-div" class="align-between"> <span
+                    class="text-white text-sm stroke-dark-brown">last:</span> <span id="last-score"
+                    class="text-white text-sm stroke-gold">000000</span></p>
 
-            <p id="high-score-div" class="align-between"> <span class="text-white text-sm stroke-dark-brown">high:</span> <span id="high-score" class="text-white text-sm stroke-gold">000000</span></p>
+            <p id="high-score-div" class="align-between"> <span
+                    class="text-white text-sm stroke-dark-brown">high:</span> <span id="high-score"
+                    class="text-white text-sm stroke-gold">000000</span></p>
 
             <!-- top left board power bars -->
 
-            <div id="energy-bar-div"> <img src="/assets/img/energy-bar-icon.png" alt="" class="power-bar-icons">
-                <div class="power-bars">
-                    <div id="energy-inner-core"></div>
-                </div>
+            <img id="energy-icon" src="/assets/img/energy-bar-icon.png" alt="">
+
+            <div id="energy-bar" class="power-bars">
+                <div id="energy-inner-bar" class="inner-bars"></div>
             </div>
 
-            <div id="life-bar-div"> <img src="/assets/img/life-bar-icon.png" alt="" class="power-bar-icons">
-                <div class="power-bars">
-                    <div id="life-inner-core"></div>
-                </div>
+            <img id="life-icon" src="/assets/img/life-bar-icon.png" alt="">
+
+            <div id="life-bar" class="power-bars">
+                <div id="life-inner-bar" class="inner-bars"></div>
             </div>
 
-            <div id="base-life-bar-div"> <img src="/assets/img/base-life-bar.png" alt="" class="power-bar-icons">
-                <div class="power-bars">
-                    <div id="base=life-inner-core"></div>
-                </div>
+            <img id="base-icon" src="/assets/img/base-life-bar.png" alt="">
+
+            <div id="base-bar" class="power-bars">
+                <div id="base-inner-bar" class="inner-bars"></div>
             </div>
+
 
             <!-- top right board -->
 
-            <p id="music-switch-game-menu"><span id="music-text-game-menu" class="btn">music:</span> <span
-                    id="music-state-game-menu">on</span></p>
+            <p id="music-toggle-div" class="align-between top-right-item"><span id="music-toggle-button" class="btn text-sm text-white stroke-dark-blue">music:</span> <span
+                    id="music-state" class="text-white text-sm stroke-light-blue">on</span></p>
 
-            <p id="fx-switch-game-menu"><span id="fx-text-game-menu" class="btn">sfx:</span> <span
-                    id="fx-state-game-menu">on</span></p>
+            <p id="sfx-toggle-div" class="align-between top-right-item"><span id="sfx-toggle-button" class="btn text-sm text-white stroke-dark-blue">sfx:</span> <span
+                    id="fx-state" class="text-white text-sm stroke-light-blue">on</span></p>
 
-            <p id="pause-btn">pause</p>
+            <p id="pause-btn" class="btn text-white text-sm stroke-dark-blue">pause</p>
 
-            <p id="quit-btn">quit</p>
+            <p id="quit-btn" class="btn text-white text-sm stroke-dark-blue">quit</p>
 
 
         </div>
 
 
+        <p id="start-countdown" hidden>3</p>
+
+
         <!-- character area -->
 
-        <div id="character-base">
+        <div id="character-base"></div>
 
+        <div id="prof-stable">
+                <img src="/assets/img/prof-stable.png" alt="prof-stable">
+            </div>
+
+            <div id="prof-shoot">
+                <img src="/assets/img/prof-hands-up.png" alt="prof-stable">
+            </div>
+
+        <div id="green-light">
+            <img src="" alt="">
         </div>
 
 

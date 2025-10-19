@@ -19,8 +19,6 @@
   cursor: pointer;
   display: inline-block;
 }
-
-/* Hover - Büyür ve gold stroke */
 .btn:hover {
   transform: scale(1.1);
   text-shadow:
@@ -49,8 +47,6 @@
     -4px 5px 0 #92670A, -3px 5px 0 #92670A, -2px 5px 0 #92670A, -1px 5px 0 #92670A, 0px 5px 0 #92670A,
     1px 5px 0 #92670A, 2px 5px 0 #92670A, 3px 5px 0 #92670A, 4px 5px 0 #92670A, 5px 5px 0 #92670A;
 }
-
-/* Active/Click - Küçülür ve dark brown stroke */
 .btn:active {
   transform: scale(0.95);
   text-shadow:
@@ -79,13 +75,10 @@
     -4px 5px 0 #4B3301, -3px 5px 0 #4B3301, -2px 5px 0 #4B3301, -1px 5px 0 #4B3301, 0px 5px 0 #4B3301,
     1px 5px 0 #4B3301, 2px 5px 0 #4B3301, 3px 5px 0 #4B3301, 4px 5px 0 #4B3301, 5px 5px 0 #4B3301;
 }
-
-/* PNG/IMG elementleri için hover ve active efektleri */
 .btn img,
 .btn svg {
   transition: filter 0.2s ease;
 }
-
 .btn:hover img,
 .btn:hover svg {
   filter: 
@@ -95,7 +88,6 @@
     drop-shadow(0 0 4px #92670A)
     drop-shadow(0 0 5px #92670A);
 }
-
 .btn:active img,
 .btn:active svg {
   filter: 
@@ -135,7 +127,6 @@
     -4px 5px 0 #92670A, -3px 5px 0 #92670A, -2px 5px 0 #92670A, -1px 5px 0 #92670A, 0px 5px 0 #92670A,
     1px 5px 0 #92670A, 2px 5px 0 #92670A, 3px 5px 0 #92670A, 4px 5px 0 #92670A, 5px 5px 0 #92670A;
 }
-
 .stroke-dark-blue {
   text-shadow:
     -5px -5px 0 #000B51, -4px -5px 0 #000B51, -3px -5px 0 #000B51, -2px -5px 0 #000B51, -1px -5px 0 #000B51,
@@ -190,7 +181,6 @@
     -4px 5px 0 #2E4AFD, -3px 5px 0 #2E4AFD, -2px 5px 0 #2E4AFD, -1px 5px 0 #2E4AFD, 0px 5px 0 #2E4AFD,
     1px 5px 0 #2E4AFD, 2px 5px 0 #2E4AFD, 3px 5px 0 #2E4AFD, 4px 5px 0 #2E4AFD, 5px 5px 0 #2E4AFD;
 }
-
 .stroke-red {
   text-shadow:
     -5px -5px 0 #ce0d0d, -4px -5px 0 #ce0d0d, -3px -5px 0 #ce0d0d, -2px -5px 0 #ce0d0d, -1px -5px 0 #ce0d0d,
@@ -218,7 +208,6 @@
     -4px 5px 0 #ce0d0d, -3px 5px 0 #ce0d0d, -2px 5px 0 #ce0d0d, -1px 5px 0 #ce0d0d, 0px 5px 0 #ce0d0d,
     1px 5px 0 #ce0d0d, 2px 5px 0 #ce0d0d, 3px 5px 0 #ce0d0d, 4px 5px 0 #ce0d0d, 5px 5px 0 #ce0d0d;
 }
-
 .stroke-gold {
   text-shadow:
     -5px -5px 0 #92670A, -4px -5px 0 #92670A, -3px -5px 0 #92670A, -2px -5px 0 #92670A, -1px -5px 0 #92670A,
@@ -246,7 +235,6 @@
     -4px 5px 0 #92670A, -3px 5px 0 #92670A, -2px 5px 0 #92670A, -1px 5px 0 #92670A, 0px 5px 0 #92670A,
     1px 5px 0 #92670A, 2px 5px 0 #92670A, 3px 5px 0 #92670A, 4px 5px 0 #92670A, 5px 5px 0 #92670A;
 }
-
 .stroke-light-blue {
   text-shadow:
     -5px -5px 0 #3b9cbf, -4px -5px 0 #3b9cbf, -3px -5px 0 #3b9cbf, -2px -5px 0 #3b9cbf, -1px -5px 0 #3b9cbf,
@@ -306,33 +294,26 @@
 .text-black {
     color: black;
 }
-
 .text-white {
     color: white;
 }
-
 .text-orange {
     color: #faa300;
 }
-
 .text-navy {
     color: #000B51;
 }
-
 .text-purple {
     color: #5F2260
 }
 
 /* text transforms */
-
 .text-uppercase {
     text-transform: uppercase;
 }
-
 .text-lowercase {
     text-transform: lowercase;
 }
-
 /* text sizes */
 
 .text-xs {
@@ -352,6 +333,11 @@
 }
 .text-xxl {
     font-size: 96px;
+}
+
+/* text-align */
+.text-center {
+    text-align: center;
 }
 
 /* text blocks alignment */
@@ -465,6 +451,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    z-index: 6;
 }
 
 /* game top board left */
@@ -494,5 +481,132 @@
 
 /* power bars */
 
+.power-bars {
+    width: 251px;
+    height: 30px;
+    background-color: #D9D9D9;
+    z-index: 2;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+}
+.inner-bars {
+    width: 100%;
+    height: 100%;
+}
 
-/* GAME END SCREEN */ 
+#energy-icon {
+    position: absolute;
+    left: 38px;
+    top: 142px;
+    z-index: 3;
+}
+
+#energy-bar {
+    position: absolute;
+    left: 65px;
+    top: 154px;
+}
+
+#energy-inner-bar {
+    background-color: #bf39fd 
+}
+
+#life-icon {
+    position: absolute;
+    left: 38px;
+    top: 201px;
+    z-index: 3;
+}
+
+#life-bar {
+    position: absolute;
+    left: 65px;
+    top: 210px;
+}
+
+#life-inner-bar {
+    background-color: #7DBF3B
+}
+
+#base-icon {
+    position: absolute;
+    left: 38px;
+    top: 269px;
+    z-index: 3;
+}
+
+#base-bar {
+    position: absolute;
+    left: 65px;
+    top: 274px;
+}
+
+#base-inner-bar {
+    background-color: #512200
+}
+
+ /* game top board right */
+
+ #music-toggle-div {
+    position: absolute;
+    left: 1695px;
+    top: 30px;
+ }
+
+ #sfx-toggle-div {
+    position: absolute;
+    left: 1695px;
+    top: 72px;
+ }
+
+ #pause-btn {
+    position: absolute;
+    left: 1791px;
+    top: 112px;
+ }
+
+ #quit-btn {
+    position: absolute;
+    left: 1812px;
+    top: 154px;
+ }
+
+ .top-right-item {
+    width: 192px;
+    height: 23px;
+ }
+
+ /* start countdown  */
+
+ #start-countdown {
+    position: absolute;
+    width: 1920px;
+    height: 230px;
+    left: 0;
+    top: 367px;
+    font-size: 256px;
+    color: white;
+    text-align: center;
+ }
+
+ /* character initial state */
+
+ #prof-stable {
+    position: absolute;
+    left: 883px;
+    top: 909px;
+    z-index: 8;
+}
+
+#prof-shoot {
+    position: absolute;
+    left: 854px;
+    top: 912px;
+    z-index: 9;
+ }
+
+
+
+
+/* RESULT SCREEN */ 
