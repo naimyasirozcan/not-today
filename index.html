@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Not Today!</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="/assets/img/not-today-logo.png">
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,9 +21,9 @@
 
     <div id="start-screen">
         <!-- music switch on/off -->
-        <p id="music-switch-start-screen" class="align-between"><span id="music-text-start-screen"
-                class="btn text-sm text-white stroke-dark-blue">music:</span> <span id="music-state-start-screen"
-                class="text-sm text-white stroke-blue">off</span></p>
+        <p id="music-switch-start-screen" class="align-between"><span id="ss-music-toggle-btn"
+                class="btn text-sm text-white stroke-dark-blue">music:</span> <span id="ss-music-state-text"
+                class="text-sm text-white stroke-blue">on</span></p>
 
         <!-- latest score & high score -->
         <p id="start-menu-high-title" class="text-lg text-navy stroke-orange">high score:</p>
@@ -64,15 +64,15 @@
             <!-- top left board  scores -->
 
             <p id="current-score-div" class="align-between"> <span
-                    class="text-white text-sm stroke-dark-brown">score:</span> <span id="current-score"
+                    class="text-white text-sm stroke-dark-brown">score:</span> <span id="gb-current-score"
                     class="text-white text-sm stroke-gold">000000</span></p>
 
             <p id="last-score-div" class="align-between"> <span
-                    class="text-white text-sm stroke-dark-brown">last:</span> <span id="last-score"
+                    class="text-white text-sm stroke-dark-brown">last:</span> <span id="gb-last-score"
                     class="text-white text-sm stroke-gold">000000</span></p>
 
             <p id="high-score-div" class="align-between"> <span
-                    class="text-white text-sm stroke-dark-brown">high:</span> <span id="high-score"
+                    class="text-white text-sm stroke-dark-brown">high:</span> <span id="gb-high-score"
                     class="text-white text-sm stroke-gold">000000</span></p>
 
             <!-- top left board power bars -->
@@ -98,12 +98,12 @@
 
             <!-- top right board -->
 
-            <p id="music-toggle-div" class="align-between top-right-item"><span id="music-toggle-button"
-                    class="btn text-sm text-white stroke-dark-blue">music:</span> <span id="music-state"
+            <p id="music-toggle-div" class="align-between top-right-item"><span id="gb-music-toggle-btn"
+                    class="btn text-sm text-white stroke-dark-blue">music:</span> <span id="gb-music-state"
                     class="text-white text-sm stroke-light-blue">on</span></p>
 
-            <p id="sfx-toggle-div" class="align-between top-right-item"><span id="sfx-toggle-button"
-                    class="btn text-sm text-white stroke-dark-blue">sfx:</span> <span id="fx-state"
+            <p id="sfx-toggle-div" class="align-between top-right-item"><span id="gb-sfx-toggle-btn"
+                    class="btn text-sm text-white stroke-dark-blue">sfx:</span> <span id="gb-sfx-state"
                     class="text-white text-sm stroke-light-blue">on</span></p>
 
             <p id="pause-btn" class="btn text-white text-sm stroke-dark-blue">pause</p>
@@ -121,6 +121,7 @@
 
         <div id="character-base"></div>
 
+        <!-- quit confirm  -->
 
         <div id="quit-confirm">
             <p class="text-black text-md stroke-orange text-uppercase">DO You WANT TO QUIT?</p>
@@ -156,7 +157,10 @@
 
 
 
-    <script src=""></script>
+    <script src="src/main.js"></script>
+    <script src="src/invader.js"></script>
+    <script src="src/prof.js"></script>
+    <script src="src/light-ball.js"></script>
 </body>
 
 </html>

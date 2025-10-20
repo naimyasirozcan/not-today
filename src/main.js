@@ -1,24 +1,375 @@
 // *** GLOBAL DOM DECLARATIONS ***
 
-// start screen
+// START SCREEN
 
-const startScreen = document.querySelector('#start-screen')
+const startScreenNode = document.querySelector('#start-screen')
 const startButton = document.querySelector('#start-button')
 const ssHighScoreNode = document.querySelector('#start-menu-high-score')
 const ssLastScoreNode = document.querySelector('#start-menu-last-score')
+const ssMusicToggleNode = document.querySelector('#ss-music-toggle-btn')
+const ssMusicStateNode = document.querySelector('#ss-music-state-text')
+
+// GAMEBOX
+
+// top left 
+
+const gameBoxNode = document.querySelector('#game-box')
+const collisionAreaNode = document.querySelector('#collision-area')
+
+const gbCurrentScoreNode = document.querySelector('#gb-current-score')
+const gbLastScoreNode = document.querySelector('#gb-last-score')
+const gbHighScoreNode = document.querySelector('#gb-high-score')
+
+const baseLifeNode = document.querySelector('#base-inner-bar')
+
+const countdownNode = document.querySelector('#start-countdown')
+
+// top right 
+
+const gbMusicToggleNode = document.querySelector('#gb-music-toggle-btn')
+const gbMusicStateNode = document.querySelector('#gb-music-state')
+
+const gbSfxToggleNode = document.querySelector('#gb-sfx-toggle-btn')
+const gbSfxStateNode = document.querySelector('#gb-sfx-state')
+
+const pauseBtn = document.querySelector('#pause-btn')
+const quitBtn = document.querySelector('#quit-btn')
+
+const quitConfirmNo = document.querySelector('#quit-no')
+const quitConfirmYes = document.querySelector('#quit-yes')
+
+
+// RESULT SCREEN
+
+const resultScreenNode = document.querySelector('#result-screen')
+
+const gameEndMessageOne = document.querySelector('#game-end-message-one')
+const gameEndMessageTwo = document.querySelector('#game-end-message-two')
+
+const gameEndScore = document.querySelector('#game-end-result-score')
+const gameEndHighScore = document.querySelector('#game-end-high-score')
+
+const toStartMenuBtn = document.querySelector('#game-end-main-menu')
 
 
 
+
+// -------------------------------------------------------------------------------------------------
 // *** GLOBAL VARIABLES ***
-let highScore = localStorage.getItem('highScore')
-let formattedHighScore = `${highScore.padStart(6, '0')}`
-ssHighScoreNode.innerHTML = formattedHighScore
 
-if(highScore === null || highScore === undefined || highScore === ''){
-    highScore === 0
+isPause = false
+
+// base life
+let baseLife = 100
+
+// score variables
+let currentScore = 0
+let highScore = Number(localStorage.getItem('highScore'))
+let lastScore = Number(localStorage.getItem('lastScore'))
+let isNewRecord = null
+
+if (highScore === null || highScore === undefined || highScore === '') {
+    highScore = 0
 }
 
-let lastScore = localStorage.getItem('lastScore')
-if(lastScore === null || lastScore === undefined || lastScore === ''){
-    lastScore === 0
+let formattedHighScore = `${highScore.toString().padStart(6, '0')}`
+gbHighScoreNode.innerHTML = formattedHighScore
+
+
+if (lastScore === null || lastScore === undefined || lastScore === '') {
+    lastScore = 0
 }
+let formattedLastScore = `${lastScore.toString().padStart(6, '0')}`
+ssLastScoreNode.innerHTML = formattedLastScore
+gbLastScoreNode.innerHTML = formattedLastScore
+
+// game items
+
+let profObj = null
+let lightBallArr = []
+let invaderArr = []
+let invaderInternalId
+let gameInternalId
+
+// -------------------------------------------------------------------------------------------------
+// *** AUDIO FUNCTIONS ***
+
+// music state
+let isMusicOn = true
+let isSfxOn = true
+
+// music paths
+
+let startScreenMusic = new Audio('../assets/audio/music/start-menu-music.mp3')
+let gameBoxMusic = new Audio('../assets/audio/music/gameplay-music.mp3')
+let resultScreenMusic = new Audio('../assets/audio/fx/end-game-music.mp3') 
+
+// set all music to loop// 
+startScreenMusic.loop = true
+gameBoxMusic.loop = true
+resultScreenMusic.loop = true
+
+// set initial volume
+startScreenMusic.volume = 0.5
+gameBoxMusic.volume = 0.5
+resultScreenMusic.volume = 0.5
+
+// play music function
+function playMusic(audio) {
+    if (isMusicOn) {
+        audio.play()
+    }
+}
+
+
+// play sound effect
+function playSfx(soundPath) {
+    if (isSfxOn) {
+        const sfx = new Audio(soundPath)
+        sfx.volume = 0.3
+        sfx.play()
+    }
+}
+
+// stop all music
+
+function stopAllMusic() {
+    if (startScreenMusic) {
+        startScreenMusic.pause()
+        startScreenMusic.currentTime = 0
+    }
+    if (gameBoxMusic) {
+        gameBoxMusic.pause()
+        gameBoxMusic.currentTime = 0
+    }
+    if (resultScreenMusic) {
+        resultScreenMusic.pause()
+        resultScreenMusic.currentTime = 0
+    }
+}
+
+// -------------------------------------------------------------------------------------------------
+// *** FUNCTIONS ***
+
+function showStartScreen() {
+
+    playMusic(startScreenMusic)
+
+    startScreenNode.style.display = "block"
+    gameBoxNode.style.display = "none"
+    resultScreenNode.style.display = "none"
+
+    let formattedHighScore = `${highScore.toString().padStart(6, '0')}`
+    ssHighScoreNode.innerHTML = formattedHighScore
+    let formattedLastScore = `${lastScore.toString().padStart(6, '0')}`
+    ssLastScoreNode.innerHTML = formattedLastScore
+}
+
+function showGameBox() {
+    stopAllMusic()
+    playMusic(gameBoxMusic)
+
+    startScreenNode.style.display = "none"
+    gameBoxNode.style.display = "block"
+    resultScreenNode.style.display = "none"
+
+    let formattedHighScore = `${highScore.toString().padStart(6, '0')}`
+    gbHighScoreNode.innerHTML = formattedHighScore
+    let formattedLastScore = `${lastScore.toString().padStart(6, '0')}`
+    gbLastScoreNode.innerHTML = formattedLastScore
+
+    profObj = new Prof()
+
+    countdownStart()
+}
+
+function countdownStart() {
+    let count = 4
+    countdownNode.style.display = 'block'
+    const countInterval = setInterval(() => {
+        count--
+        countdownNode.innerHTML = count
+        if (count === 0) {
+            countdownNode.style.display = 'none'
+            clearInterval(countInterval)
+            startGame()
+        }
+    }, 1000);
+}
+
+function gameLoop() {
+
+}
+
+function startGame() {
+    gameInternalId = setInterval(gameLoop, Math.floor(1000 / 60))
+    invaderInternalId = setInterval(invaderSpawn, 2000)
+}
+
+function invaderSpawn() {
+    let randomXPositive = Math.floor(Math.random() * 320)
+    let randomXNegaive = Math.floor(Math.random() * -320)
+    let randomArray = [randomXNegaive, randomXPositive]
+    let randomX = randomArray[Math.floor(Math.random() * 2)]
+    let newInvaderObj = new Invader(randomX)
+    invaderArr.push(newInvaderObj)
+}
+
+function checkCollisions(invaders, lightBalls) {
+    for (let i = 0; i < invaders.length; i++) {
+        for (let j = 0; i < lightBalls.length; i++) {
+            const invader = invaders[i]
+            const lightBall = lightBalls[j]
+
+            if (invader.x < lightBall.x + lightBall.width &&
+                invader.x + invader.width > lightBall.x &&
+                invader.y < lightBall.y + lightBall.height &&
+                invader.y + invader.height > lightBall.y){
+
+                    invader.life--
+
+                    if(invader.life === 0){
+                        invader.die()
+                        invaders.splice(invaders.indexOf(invader),1)
+                    }
+
+                    lightBall.node.remove()
+                    lightBalls.splice(lightBalls.indexOf(lightBall),1)
+                }
+        }
+    }
+}
+
+
+function checkBaseLife() {
+    invaderArr.forEach(invader => {
+        if(invader.y > 862){
+            invader.node.remove()
+            invaderArr.splice(invaderArr.indexOf(invader))
+            baseLife = baseLife - 5
+        }
+    })
+}
+
+function checkLightBallDespawn() {
+    lightBallArr.forEach(lightBall => {
+        if(lightBall.y < 500){
+            lightBall.node.remove()
+            lightBallArr.splice(lightBallArr.indexOf(lightBall))
+        }
+    })
+}
+
+
+function isNewHighScore() {
+    if (currentScore > highScore) {
+        highScore = currentScore
+        localStorage.setItem('highScore', highScore)
+        isNewRecord = true
+    }
+}
+
+function gameEnd() {
+    clearInterval(alienInternalId)
+    clearInterval(gameInternalId)
+    isNewHighScore()
+    showResultScreen()
+}
+
+function showResultScreen() {
+
+    stopAllMusic()
+    startScreenNode.style.display = "none"
+    gameBoxNode.style.display = "none"
+    resultScreenNode.style.display = "block"
+
+    formattedScore = `${currentScore.padStart(6, '0')}`
+    gameEndScore.innerHTML = formattedLastScore
+
+    formattedHighScore = `${highScore.toString().padStart(6, '0')}`
+    gameEndHighScore.innerHTML = formattedHighScore
+}
+
+function returnStartScreen() {
+    lastScore = currentScore
+    localStorage.setItem('lastScore', lastScore)
+    currentScore = 0
+    baseLife = 100
+    isNewRecord = null
+}
+
+// -------------------------------------------------------------------------------------------------
+// *** EVENT LISTENERS ***
+
+// START BUTTON
+
+startButton.addEventListener('click', () => {
+    showGameBox()
+})
+
+// MUSIC TOGGLES
+
+ssMusicToggleNode.addEventListener('click', () => {
+    isMusicOn = !isMusicOn
+
+    let musicState = isMusicOn ? 'on' : 'off'
+    gbMusicStateNode.innerHTML = musicState
+    ssMusicStateNode.innerHTML = musicState
+
+    if (isMusicOn) {
+        playMusic(startScreenMusic)
+    } else if (!isMusicOn) {
+        startScreenMusic.pause()
+    }
+})
+
+gbMusicToggleNode.addEventListener('click', () => {
+    isMusicOn = !isMusicOn
+
+    let musicState = isMusicOn ? 'on' : 'off'
+    gbMusicStateNode.innerHTML = musicState
+    ssMusicStateNode.innerHTML = musicState
+
+    if (isMusicOn) {
+        playMusic(gameBoxMusic)
+    } else if (!isMusicOn) {
+        gameBoxMusic.pause()
+    }
+})
+
+// SFX TOGGLE 
+
+gbSfxToggleNode.addEventListener('click', () => {
+    isSfxOn = !isSfxOn
+    console.log(`sfx state: ${isSfxOn}`)
+    let sfxText = isSfxOn ? 'on' : 'off'
+    gbSfxStateNode.innerText = sfxText
+})
+
+// PAUSE BTN
+
+pauseBtn.addEventListener('click', () => {
+    isPause = !isPause
+
+    if (isPause) {
+        gameBoxMusic.pause()
+        clearInterval(gameInternalId)
+        clearInterval(invaderInternalId)
+        pauseBtn.innerHTML = 'resume'
+    } else {
+
+        pauseBtn.innerHTML = 'resume'
+    }
+})
+
+quitBtn.addEventListener('click', () => {
+
+})
+// -------------------------------------------------------------------------------------------------
+
+// *** APP FLOW ***
+
+// start screens
+showStartScreen()
+
+// -------------------------------------------------------------------------------------------------
