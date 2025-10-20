@@ -32,7 +32,7 @@
         <p id="start-menu-last-score" class="text-lg text-black stroke-orange">000000</p>
 
         <!-- start btn  -->
-        <img src="/assets/img/start-btn.png" alt="click to start" id="start-button" class="btn">
+        <img src="/assets/img/start-btn.png" alt="click to start" id="start-button" class="btn pulse">
 
         <!-- game logo -->
         <a href="https://github.com/naimyasirozcan/not-today" target="_blank"><img id="game-logo" class="btn"
@@ -121,9 +121,13 @@
 
         <div id="character-base"></div>
 
+
         <div id="quit-confirm">
-            <p>DO YOU WANT TO QUIT?</p>
-            <button id="no-quit btn">NO</button>
+            <p class="text-black text-md stroke-orange text-uppercase">DO You WANT TO QUIT?</p>
+            <div class="quit-btns-div">
+                <button id="quit-no" class="btn quit-btns text-black text-md">NO</button>
+                <button id="quit-yes" class="btn quit-btns text-black text-md">YES</button>
+            </div>
         </div>
 
     </div>
@@ -132,6 +136,22 @@
 
     <div id="result-screen">
 
+        <div id="result-bg-div"></div>
+
+        
+        <p id="game-end-message-one" class="text-uppercase text-xl stroke-gold text-black text-center">GAME OVER</p>
+        <p id="game-end-message-two" class="text-sm text-black text-center">Next time...</p>
+        
+        <p id="game-end-result-title" class="text-uppercase text-xl text-black text-center">SCORE:</p>
+        <p id="game-end-result-score" class="text-uppercase text-xl text-purple stroke-light-blue text-center">000000
+        </p>
+        
+        <p id="game-end-high-title" class="text-lowercase text-lg text-black stroke-orange text-center">high score:</p>
+        <p id="game-end-high-score" class="text-lowercase text-lg text-black stroke-gold text-center">000000</p>
+        
+        <p id="game-end-main-menu" class="text-uppercase text-lg text-black text-center btn pulse">CLICK TO START MENU</p>
+        
+        
     </div>
 
 

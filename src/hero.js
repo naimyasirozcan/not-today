@@ -1,6 +1,6 @@
 class Hero {
     constructor(){
-        this.node = document.querySelector('#prof-stable')  
-        this.
+        this.node = document.createElement('img')
+        this.node.id = 'prof'
     }
 }

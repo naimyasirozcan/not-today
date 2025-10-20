@@ -7,11 +7,12 @@ const startButton = document.querySelector('#start-button')
 const ssHighScoreNode = document.querySelector('#start-menu-high-score')
 const ssLastScoreNode = document.querySelector('#start-menu-last-score')
 
-ssHighScoreNode.innerHTML = `${highScore.padStart(6, '0')}`
 
 
 // *** GLOBAL VARIABLES ***
 let highScore = localStorage.getItem('highScore')
+let formattedHighScore = `${highScore.padStart(6, '0')}`
+ssHighScoreNode.innerHTML = formattedHighScore
 
 if(highScore === null || highScore === undefined || highScore === ''){
     highScore === 0
