@@ -9,10 +9,10 @@ class Invader {
 
 
         //add the initial values of position and dimensions
-        this.width = 37
-        this.height = 76
+        this.width = 23.6
+        this.height = 49
         this.x = 941 + randomX
-        this.y = 497
+        this.y = 523
 
         //adjust the node with initial values
         this.node.style.width = `${this.width}px`
@@ -37,21 +37,24 @@ class Invader {
         this.node.style.top = `${this.y}px`
 
 
-        this.width = this.width + (this.width * (0.2 / 100))
-        this.height = this.height + (this.height * (0.2 / 100))
+        this.width = this.width + (this.width * (0.4 / 100))
+        this.height = this.height + (this.height * (0.4 / 100))
 
         this.node.style.width = `${this.width}px`
         this.node.style.height = `${this.height}px`
     }
 
     die(){
+        this.node.src = "./assets/img/enemy-explosion.png"
+        this.width = this.height 
+        this.node.style.width = `${this.width}px`
+
         playSfx(this.dieFx)
         currentScore = currentScore + 5
         let formattedCurrentScore = currentScore.toString().padStart(6, '0')
         gbCurrentScoreNode.innerHTML = formattedCurrentScore
-        this.node.src = "../assets/img/ground-alien.png"
         setTimeout(() => {
             this.node.remove()
-        }, 1000)
+        }, 2000)
     }
 }

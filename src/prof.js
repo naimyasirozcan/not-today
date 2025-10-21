@@ -20,6 +20,6 @@ class Prof {
         this.node.style.left = `${this.x}px`
 
         //movements
-        this.moveSpeed = 10
+        this.moveSpeed = 12
     }
 }

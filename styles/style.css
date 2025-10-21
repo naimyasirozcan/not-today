@@ -397,7 +397,7 @@
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
-    display: none;
+    display: block;
 }
 
 /* music switch  */
@@ -632,6 +632,17 @@
 /* start countdown  */
 
 #start-countdown {
+    position: absolute;
+    width: 1920px;
+    height: 230px;
+    left: 0;
+    top: 367px;
+    font-size: 256px;
+    color: white;
+    text-align: center;
+}
+
+#pause-div {
     position: absolute;
     width: 1920px;
     height: 230px;

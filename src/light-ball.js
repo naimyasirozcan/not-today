@@ -21,7 +21,7 @@ class LightBall {
         this.node.style.left = `${this.x}px`
 
         //movements
-        this.speed = 1
+        this.speed = 3
 
         //life
     }
@@ -29,8 +29,8 @@ class LightBall {
     automaticMovement(){
         this.y -= this.speed
         this.node.style.top = `${this.y}px`
-        this.width = this.width - (this.width * (0.2 / 100))
-        this.height = this.height - (this.height * (0.2 / 100))
+        this.width = this.width - (this.width * (1 / 100))
+        this.height = this.height - (this.height * (1 / 100))
 
         this.node.style.width = `${this.width}px`
         this.node.style.height = `${this.height}px`

@@ -23,6 +23,7 @@ const gbHighScoreNode = document.querySelector('#gb-high-score')
 const baseLifeNode = document.querySelector('#base-inner-bar')
 
 const countdownNode = document.querySelector('#start-countdown')
+const pauseDivNode = document.querySelector('#pause-div')
 
 // top right 
 
@@ -109,6 +110,7 @@ let resultScreenMusic = new Audio('../assets/audio/music/end-game-music.mp3')
 
 // fx paths
 let countDownFX = new Audio('../assets/audio/fx/game-countdown.mp3')
+let lightBallSound = new Audio('../assets/audio/fx/light-ball-sound.mp3')
 let gameOverMusic = new Audio('../assets/audio/fx/game-over-music.mp3')
 let gameOverVoice = new Audio('../assets/audio/fx/game-over-voice.mp3')
 
@@ -161,7 +163,7 @@ function stopAllMusic() {
 function showStartScreen() {
     stopAllMusic()
 
-    playMusic(startScreenMusic)
+    // playMusic(startScreenMusic)
 
     clearInterval(gameIntervalId)
     clearInterval(invaderInternalId)
@@ -170,11 +172,16 @@ function showStartScreen() {
     gameBoxNode.style.display = "none"
     resultScreenNode.style.display = "none"
 
+    updateScore()
+}
+
+function updateScore() {
     let formattedHighScore = `${highScore.toString().padStart(6, '0')}`
     ssHighScoreNode.innerHTML = formattedHighScore
     let formattedLastScore = `${lastScore.toString().padStart(6, '0')}`
     ssLastScoreNode.innerHTML = formattedLastScore
 }
+
 
 function showGameBox() {
     stopAllMusic()
@@ -196,6 +203,8 @@ function showGameBox() {
 
 function countdownStart() {
     setTimeout(playSfx(countDownFX), 1000)
+    pauseBtn.style.display = 'none'
+    quitBtn.style.display = 'none'
     let count = 4
     countdownNode.style.display = 'block'
     const countInterval = setInterval(() => {
@@ -220,9 +229,13 @@ function gameLoop() {
 
     checkCollisions(invaderArr, lightBallArr)
     checkBaseLife()
+    checkLightBallDespawn()
 }
 
 function startGame() {
+    pauseBtn.style.display = 'inline-block'
+    quitBtn.style.display = 'inline-block'
+
     gameIntervalId = setInterval(gameLoop, Math.floor(1000 / 60))
     invaderInternalId = setInterval(invaderSpawn, 2000)
 }
@@ -237,6 +250,7 @@ function invaderSpawn() {
 }
 
 function createLightBall() {
+    playSfx(lightBallSound)
     let profX = profObj.x
     let newLightBall = new LightBall(profX)
     lightBallArr.push(newLightBall)
@@ -284,7 +298,7 @@ function checkBaseLife() {
 
 function checkLightBallDespawn() {
     lightBallArr.forEach((lightBall, index) => {
-        if (lightBall.y < 500) {
+        if (lightBall.y < 552) {
             lightBall.node.remove()
             lightBallArr.splice(index, 1)
         }
@@ -301,6 +315,13 @@ function isNewHighScore() {
 }
 
 function gameEnd() {
+    if (isPause) {
+        isPause = false
+        pauseDivNode.style.display = 'none'
+        pauseDivNode.style.innerHTML = ''
+        pauseBtn.innerHTML = 'pause'
+    }
+    quitConfirmDiv.style.display = 'none'
     playSfx(gameOverMusic)
     setTimeout(playSfx(gameOverVoice), 3000)
     countdownNode.style.display = 'block'
@@ -326,14 +347,19 @@ function showResultScreen() {
 
 function returnStartScreen() {
     stopAllMusic()
-    invaderArr = []
-    invader.forEach(invader => {
+    invaderArr.forEach(invader => {
         invader.node.remove()
     })
-    lightBallArr = []
+    invaderArr = []
+
+
     lightBallArr.forEach(lightBall => {
         lightBall.node.remove()
     })
+    lightBallArr = []
+
+    profObj.node.remove()
+
     lastScore = currentScore
     localStorage.setItem('lastScore', lastScore)
     currentScore = 0
@@ -383,21 +409,21 @@ gbMusicToggleNode.addEventListener('click', () => {
 
 // PROF ACTIONS
 
-
-
 document.addEventListener('keydown', e => {
     const key = e.key.toLowerCase()
 
 
-    if ((key === 'a' || key === 'arrowleft') && profObj.x > 0) {
-        profObj.x -= profObj.moveSpeed
-        profObj.node.style.left = `${profObj.x}px`
-    } else if ((key === 'd' || key === 'arrowright') && profObj.x < gameBoxNode.offsetWidth - profObj.width) {
-        profObj.x += profObj.moveSpeed
-        profObj.node.style.left = `${profObj.x}px`
-    } else if ((key === 'w' || key === 'arrowup')) {
-        profObj.node.src = "../assets/img/prof-hands-up.png"
-        createLightBall()
+    if (!isPause) {
+        if ((key === 'a' || key === 'arrowleft') && profObj.x > 0) {
+            profObj.x -= profObj.moveSpeed
+            profObj.node.style.left = `${profObj.x}px`
+        } else if ((key === 'd' || key === 'arrowright') && profObj.x < gameBoxNode.offsetWidth - profObj.width) {
+            profObj.x += profObj.moveSpeed
+            profObj.node.style.left = `${profObj.x}px`
+        } else if ((key === 'w' || key === 'arrowup')) {
+            profObj.node.src = "../assets/img/prof-hands-up.png"
+            createLightBall()
+        }
     }
 }
 )
@@ -405,7 +431,7 @@ document.addEventListener('keydown', e => {
 document.addEventListener('keyup', e => {
     const key = e.key.toLowerCase()
 
-     if ((key === 'w' || key === 'arrowup')) {
+    if ((key === 'w' || key === 'arrowup')) {
         profObj.node.src = "../assets/img/prof-stable.png"
     }
 }
@@ -430,7 +456,11 @@ pauseBtn.addEventListener('click', () => {
         clearInterval(gameIntervalId)
         clearInterval(invaderInternalId)
         pauseBtn.innerHTML = 'resume'
+        pauseDivNode.innerHTML = 'PAUSED'
+        pauseDivNode.style.display = 'block'
     } else {
+        pauseDivNode.style.display = 'none'
+        pauseDivNode.style.innerHTML = ''
         gameBoxMusic.play()
         pauseBtn.innerHTML = 'pause'
         gameIntervalId = setInterval(gameLoop, Math.floor(1000 / 60))
@@ -451,10 +481,12 @@ quitBtn.addEventListener('click', () => {
 
 quitConfirmYes.addEventListener('click', gameEnd)
 
-quitConfirmNo.addEventListener('click', ()=> {
+quitConfirmNo.addEventListener('click', () => {
     quitConfirmDiv.style.display = 'none'
-    gameIntervalId = setInterval(gameLoop, Math.floor(1000 / 60))
-    invaderInternalId = setInterval(invaderSpawn, 2000)
+    if (!isPause) {
+        gameIntervalId = setInterval(gameLoop, Math.floor(1000 / 60))
+        invaderInternalId = setInterval(invaderSpawn, 2000)
+    }
 })
 
 toStartMenuBtn.addEventListener('click', returnStartScreen)
@@ -463,7 +495,10 @@ toStartMenuBtn.addEventListener('click', returnStartScreen)
 // *** APP FLOW ***
 
 // start screens
-showStartScreen()
+window.addEventListener("DOMContentLoaded", () => {
+    updateScore()
+})
+
 
 // -------------------------------------------------------------------------------------------------
 // if (key === 'w' || key === 'arrowup')
