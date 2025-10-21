@@ -8,10 +8,10 @@ class Prof {
         this.node.style.zIndex = 8
 
          //add the initial values of position and dimensions
-        this.width = 216
-        this.height = 174
-        this.x = 852
-        this.y = 906
+        this.width = 148
+        this.height = 119
+        this.x = 886
+        this.y = 961
 
         //adjust the node with initial values
         this.node.style.width = `${this.width}px`
@@ -20,6 +20,6 @@ class Prof {
         this.node.style.left = `${this.x}px`
 
         //movements
-        this.moveSpeed = 2
+        this.moveSpeed = 10
     }
 }

@@ -612,8 +612,10 @@
 
 #pause-btn {
     position: absolute;
-    left: 1791px;
+    left: 1762px;
     top: 112px;
+    width: 130px;
+    text-align: end;
 }
 
 #quit-btn {

@@ -27,19 +27,28 @@ class Invader {
 
         this.life = 5
 
-        this.dieFx = new Audio('../assets/audio/music/alien-exploded.mp3')
+        this.dieFx = new Audio('../assets/audio/fx/alien-exploded.mp3')
+        this.spawnFx = new Audio('../assets/audio/fx/alien-spawn-sound.mp3')
+        this.occupyFx = new Audio('../assets/audio/fx/alien-spawn-sound.mp3')
     }
 
     automaticMovement(){
         this.y += this.speed
         this.node.style.top = `${this.y}px`
-        this.node.style.width = this.width + (this.width * (0.5 / 100))
-        this.node.style.height = this.height + (this.height * (0.5 / 100))
+
+
+        this.width = this.width + (this.width * (0.2 / 100))
+        this.height = this.height + (this.height * (0.2 / 100))
+
+        this.node.style.width = `${this.width}px`
+        this.node.style.height = `${this.height}px`
     }
 
     die(){
         playSfx(this.dieFx)
-        score = score + 5
+        currentScore = currentScore + 5
+        let formattedCurrentScore = currentScore.toString().padStart(6, '0')
+        gbCurrentScoreNode.innerHTML = formattedCurrentScore
         this.node.src = "../assets/img/ground-alien.png"
         setTimeout(() => {
             this.node.remove()

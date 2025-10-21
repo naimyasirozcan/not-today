@@ -35,6 +35,8 @@ const gbSfxStateNode = document.querySelector('#gb-sfx-state')
 const pauseBtn = document.querySelector('#pause-btn')
 const quitBtn = document.querySelector('#quit-btn')
 
+const quitConfirmDiv = document.querySelector('#quit-confirm')
+
 const quitConfirmNo = document.querySelector('#quit-no')
 const quitConfirmYes = document.querySelector('#quit-yes')
 
@@ -89,7 +91,8 @@ let profObj = null
 let lightBallArr = []
 let invaderArr = []
 let invaderInternalId
-let gameInternalId
+let gameIntervalId
+let moveInterval
 
 // -------------------------------------------------------------------------------------------------
 // *** AUDIO FUNCTIONS ***
@@ -102,7 +105,12 @@ let isSfxOn = true
 
 let startScreenMusic = new Audio('../assets/audio/music/start-menu-music.mp3')
 let gameBoxMusic = new Audio('../assets/audio/music/gameplay-music.mp3')
-let resultScreenMusic = new Audio('../assets/audio/fx/end-game-music.mp3') 
+let resultScreenMusic = new Audio('../assets/audio/music/end-game-music.mp3')
+
+// fx paths
+let countDownFX = new Audio('../assets/audio/fx/game-countdown.mp3')
+let gameOverMusic = new Audio('../assets/audio/fx/game-over-music.mp3')
+let gameOverVoice = new Audio('../assets/audio/fx/game-over-voice.mp3')
 
 // set all music to loop// 
 startScreenMusic.loop = true
@@ -110,9 +118,9 @@ gameBoxMusic.loop = true
 resultScreenMusic.loop = true
 
 // set initial volume
-startScreenMusic.volume = 0.5
-gameBoxMusic.volume = 0.5
-resultScreenMusic.volume = 0.5
+startScreenMusic.volume = 0.07
+gameBoxMusic.volume = 0.07
+resultScreenMusic.volume = 0.07
 
 // play music function
 function playMusic(audio) {
@@ -123,10 +131,9 @@ function playMusic(audio) {
 
 
 // play sound effect
-function playSfx(soundPath) {
+function playSfx(sfx) {
     if (isSfxOn) {
-        const sfx = new Audio(soundPath)
-        sfx.volume = 0.3
+        sfx.volume = 0.04
         sfx.play()
     }
 }
@@ -152,8 +159,12 @@ function stopAllMusic() {
 // *** FUNCTIONS ***
 
 function showStartScreen() {
+    stopAllMusic()
 
     playMusic(startScreenMusic)
+
+    clearInterval(gameIntervalId)
+    clearInterval(invaderInternalId)
 
     startScreenNode.style.display = "block"
     gameBoxNode.style.display = "none"
@@ -184,6 +195,7 @@ function showGameBox() {
 }
 
 function countdownStart() {
+    setTimeout(playSfx(countDownFX), 1000)
     let count = 4
     countdownNode.style.display = 'block'
     const countInterval = setInterval(() => {
@@ -194,15 +206,24 @@ function countdownStart() {
             clearInterval(countInterval)
             startGame()
         }
-    }, 1000);
+    }, 600);
 }
 
 function gameLoop() {
+    invaderArr.forEach(invader => {
+        invader.automaticMovement()
+    })
 
+    lightBallArr.forEach(lightBall => {
+        lightBall.automaticMovement()
+    })
+
+    checkCollisions(invaderArr, lightBallArr)
+    checkBaseLife()
 }
 
 function startGame() {
-    gameInternalId = setInterval(gameLoop, Math.floor(1000 / 60))
+    gameIntervalId = setInterval(gameLoop, Math.floor(1000 / 60))
     invaderInternalId = setInterval(invaderSpawn, 2000)
 }
 
@@ -215,47 +236,57 @@ function invaderSpawn() {
     invaderArr.push(newInvaderObj)
 }
 
+function createLightBall() {
+    let profX = profObj.x
+    let newLightBall = new LightBall(profX)
+    lightBallArr.push(newLightBall)
+}
+
 function checkCollisions(invaders, lightBalls) {
     for (let i = 0; i < invaders.length; i++) {
-        for (let j = 0; i < lightBalls.length; i++) {
+        for (let j = 0; j < lightBalls.length; j++) {
             const invader = invaders[i]
             const lightBall = lightBalls[j]
 
             if (invader.x < lightBall.x + lightBall.width &&
                 invader.x + invader.width > lightBall.x &&
                 invader.y < lightBall.y + lightBall.height &&
-                invader.y + invader.height > lightBall.y){
+                invader.y + invader.height > lightBall.y) {
 
-                    invader.life--
+                invader.life--
 
-                    if(invader.life === 0){
-                        invader.die()
-                        invaders.splice(invaders.indexOf(invader),1)
-                    }
-
-                    lightBall.node.remove()
-                    lightBalls.splice(lightBalls.indexOf(lightBall),1)
+                if (invader.life === 0) {
+                    invader.die()
+                    invaders.splice(i, 1)
                 }
+
+                lightBall.node.remove()
+                lightBalls.splice(j, 1)
+            }
         }
     }
 }
 
 
 function checkBaseLife() {
-    invaderArr.forEach(invader => {
-        if(invader.y > 862){
+    invaderArr.forEach((invader, index) => {
+        if (invader.y > 862) {
             invader.node.remove()
-            invaderArr.splice(invaderArr.indexOf(invader))
+            invaderArr.splice(index, 1)
             baseLife = baseLife - 5
+            baseLifeNode.style.width = `${baseLife}%`
+            if (baseLife <= 0) {
+                gameEnd()
+            }
         }
     })
 }
 
 function checkLightBallDespawn() {
-    lightBallArr.forEach(lightBall => {
-        if(lightBall.y < 500){
+    lightBallArr.forEach((lightBall, index) => {
+        if (lightBall.y < 500) {
             lightBall.node.remove()
-            lightBallArr.splice(lightBallArr.indexOf(lightBall))
+            lightBallArr.splice(index, 1)
         }
     })
 }
@@ -270,10 +301,13 @@ function isNewHighScore() {
 }
 
 function gameEnd() {
-    clearInterval(alienInternalId)
-    clearInterval(gameInternalId)
-    isNewHighScore()
-    showResultScreen()
+    playSfx(gameOverMusic)
+    setTimeout(playSfx(gameOverVoice), 3000)
+    countdownNode.style.display = 'block'
+    clearInterval(invaderInternalId)
+    clearInterval(gameIntervalId)
+    setTimeout(isNewHighScore(), 3000)
+    setTimeout(showResultScreen(), 3000)
 }
 
 function showResultScreen() {
@@ -283,19 +317,29 @@ function showResultScreen() {
     gameBoxNode.style.display = "none"
     resultScreenNode.style.display = "block"
 
-    formattedScore = `${currentScore.padStart(6, '0')}`
-    gameEndScore.innerHTML = formattedLastScore
+    let formattedScore = `${currentScore.toString().padStart(6, '0')}`
+    gameEndScore.innerHTML = formattedScore
 
-    formattedHighScore = `${highScore.toString().padStart(6, '0')}`
+    let formattedHighScore = `${highScore.toString().padStart(6, '0')}`
     gameEndHighScore.innerHTML = formattedHighScore
 }
 
 function returnStartScreen() {
+    stopAllMusic()
+    invaderArr = []
+    invader.forEach(invader => {
+        invader.node.remove()
+    })
+    lightBallArr = []
+    lightBallArr.forEach(lightBall => {
+        lightBall.node.remove()
+    })
     lastScore = currentScore
     localStorage.setItem('lastScore', lastScore)
     currentScore = 0
     baseLife = 100
     isNewRecord = null
+    showStartScreen()
 }
 
 // -------------------------------------------------------------------------------------------------
@@ -337,6 +381,36 @@ gbMusicToggleNode.addEventListener('click', () => {
     }
 })
 
+// PROF ACTIONS
+
+
+
+document.addEventListener('keydown', e => {
+    const key = e.key.toLowerCase()
+
+
+    if ((key === 'a' || key === 'arrowleft') && profObj.x > 0) {
+        profObj.x -= profObj.moveSpeed
+        profObj.node.style.left = `${profObj.x}px`
+    } else if ((key === 'd' || key === 'arrowright') && profObj.x < gameBoxNode.offsetWidth - profObj.width) {
+        profObj.x += profObj.moveSpeed
+        profObj.node.style.left = `${profObj.x}px`
+    } else if ((key === 'w' || key === 'arrowup')) {
+        profObj.node.src = "../assets/img/prof-hands-up.png"
+        createLightBall()
+    }
+}
+)
+
+document.addEventListener('keyup', e => {
+    const key = e.key.toLowerCase()
+
+     if ((key === 'w' || key === 'arrowup')) {
+        profObj.node.src = "../assets/img/prof-stable.png"
+    }
+}
+)
+
 // SFX TOGGLE 
 
 gbSfxToggleNode.addEventListener('click', () => {
@@ -353,18 +427,37 @@ pauseBtn.addEventListener('click', () => {
 
     if (isPause) {
         gameBoxMusic.pause()
-        clearInterval(gameInternalId)
+        clearInterval(gameIntervalId)
         clearInterval(invaderInternalId)
         pauseBtn.innerHTML = 'resume'
     } else {
-
-        pauseBtn.innerHTML = 'resume'
+        gameBoxMusic.play()
+        pauseBtn.innerHTML = 'pause'
+        gameIntervalId = setInterval(gameLoop, Math.floor(1000 / 60))
+        invaderInternalId = setInterval(invaderSpawn, 2000)
     }
 })
 
-quitBtn.addEventListener('click', () => {
 
+// QUIT BTN 
+
+
+quitBtn.addEventListener('click', () => {
+    clearInterval(gameIntervalId)
+    clearInterval(invaderInternalId)
+    quitConfirmDiv.style.display = 'flex'
+    quitConfirmDiv.style.zIndex = 9
 })
+
+quitConfirmYes.addEventListener('click', gameEnd)
+
+quitConfirmNo.addEventListener('click', ()=> {
+    quitConfirmDiv.style.display = 'none'
+    gameIntervalId = setInterval(gameLoop, Math.floor(1000 / 60))
+    invaderInternalId = setInterval(invaderSpawn, 2000)
+})
+
+toStartMenuBtn.addEventListener('click', returnStartScreen)
 // -------------------------------------------------------------------------------------------------
 
 // *** APP FLOW ***
@@ -373,3 +466,5 @@ quitBtn.addEventListener('click', () => {
 showStartScreen()
 
 // -------------------------------------------------------------------------------------------------
+// if (key === 'w' || key === 'arrowup')
+// createLightBall(profObj.x)

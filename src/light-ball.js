@@ -9,10 +9,10 @@ class LightBall {
 
 
         //add the initial values of position and dimensions
-        this.width = 66
-        this.height = 66
-        this.x = profX + 77
-        this.y = 898
+        this.width = 39
+        this.height = 39
+        this.x = profX + 54
+        this.y = 961
 
         //adjust the node with initial values
         this.node.style.width = `${this.width}px`
@@ -29,7 +29,10 @@ class LightBall {
     automaticMovement(){
         this.y -= this.speed
         this.node.style.top = `${this.y}px`
-        this.node.style.width = this.width - (this.width * (0.5 / 100))
-        this.node.style.height = this.height - (this.height * (0.5 / 100))
+        this.width = this.width - (this.width * (0.2 / 100))
+        this.height = this.height - (this.height * (0.2 / 100))
+
+        this.node.style.width = `${this.width}px`
+        this.node.style.height = `${this.height}px`
     }
 }
