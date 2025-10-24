@@ -393,7 +393,7 @@
 #start-screen {
     width: 1920px;
     height: 1080px;
-    background: url(./assets/img/start-menu-bg.png);
+    background: url(../assets/img/start-menu-bg.png);
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
@@ -479,7 +479,7 @@
     height: 869px;
     left: 0px;
     top: 0px;
-    background-image: url(./assets/img/bg-top-collision.png);
+    background-image: url(../assets/img/bg-top-collision.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -491,7 +491,7 @@
     top: 0px;
     width: 1920px;
     height: 211px;
-    background-image: url(./assets/img/bg-bottom-char-base.png);
+    background-image: url(../assets/img/bg-bottom-char-base.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -703,7 +703,7 @@
     position: relative;
     width: 1920px;
     height: 1080px;
-    background-image: url(./assets/img/result-screen-bg.png);
+    background-image: url(../assets/img/result-screen-bg.png);
     display: none;
 }
 
