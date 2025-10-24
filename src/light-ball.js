@@ -2,7 +2,7 @@ class LightBall {
     constructor(profX){
 
         this.node = document.createElement("img")
-        this.node.src = "../assets/img/light-ball.png"
+        this.node.src = "./assets/img/light-ball.png"
         this.node.style.zIndex = 7
         this.node.style.position = 'absolute'
         gameBoxNode.append(this.node) //to add the node to game box on pipe creation

@@ -2,7 +2,7 @@ class Prof {
     constructor(){
         this.node = document.createElement('img')
         this.node.id = 'prof'
-        this.node.src = "../assets/img/prof-stable.png"
+        this.node.src = "./assets/img/prof-stable.png"
         gameBoxNode.append(this.node)
         this.node.style.position = 'absolute'
         this.node.style.zIndex = 8

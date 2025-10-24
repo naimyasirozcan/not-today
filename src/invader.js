@@ -2,7 +2,7 @@ class Invader {
     constructor(randomX){
 
         this.node = document.createElement("img")
-        this.node.src = "../assets/img/ground-alien.png"
+        this.node.src = "./assets/img/ground-alien.png"
         this.node.style.zIndex = 2
         this.node.style.position = 'absolute'
         gameBoxNode.append(this.node) //to add the node to game box on pipe creation
@@ -27,9 +27,9 @@ class Invader {
 
         this.life = 5
 
-        this.dieFx = new Audio('../assets/audio/fx/alien-exploded.mp3')
-        this.spawnFx = new Audio('../assets/audio/fx/alien-spawn-sound.mp3')
-        this.occupyFx = new Audio('../assets/audio/fx/alien-spawn-sound.mp3')
+        this.dieFx = new Audio('./assets/audio/fx/alien-exploded.mp3')
+        this.spawnFx = new Audio('./assets/audio/fx/alien-spawn-sound.mp3')
+        this.occupyFx = new Audio('./assets/audio/fx/alien-spawn-sound.mp3')
     }
 
     automaticMovement(){

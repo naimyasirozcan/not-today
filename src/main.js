@@ -104,15 +104,15 @@ let isSfxOn = true
 
 // music paths
 
-let startScreenMusic = new Audio('../assets/audio/music/start-menu-music.mp3')
-let gameBoxMusic = new Audio('../assets/audio/music/gameplay-music.mp3')
-let resultScreenMusic = new Audio('../assets/audio/music/end-game-music.mp3')
+let startScreenMusic = new Audio('./assets/audio/music/start-menu-music.mp3')
+let gameBoxMusic = new Audio('./assets/audio/music/gameplay-music.mp3')
+let resultScreenMusic = new Audio('./assets/audio/music/end-game-music.mp3')
 
 // fx paths
-let countDownFX = new Audio('../assets/audio/fx/game-countdown.mp3')
-let lightBallSound = new Audio('../assets/audio/fx/light-ball-sound.mp3')
-let gameOverMusic = new Audio('../assets/audio/fx/game-over-music.mp3')
-let gameOverVoice = new Audio('../assets/audio/fx/game-over-voice.mp3')
+let countDownFX = new Audio('./assets/audio/fx/game-countdown.mp3')
+let lightBallSound = new Audio('./assets/audio/fx/light-ball-sound.mp3')
+let gameOverMusic = new Audio('./assets/audio/fx/game-over-music.mp3')
+let gameOverVoice = new Audio('./assets/audio/fx/game-over-voice.mp3')
 
 // set all music to loop// 
 startScreenMusic.loop = true
@@ -421,7 +421,7 @@ document.addEventListener('keydown', e => {
             profObj.x += profObj.moveSpeed
             profObj.node.style.left = `${profObj.x}px`
         } else if ((key === 'w' || key === 'arrowup')) {
-            profObj.node.src = "../assets/img/prof-hands-up.png"
+            profObj.node.src = "./assets/img/prof-hands-up.png"
             createLightBall()
         }
     }
@@ -432,7 +432,7 @@ document.addEventListener('keyup', e => {
     const key = e.key.toLowerCase()
 
     if ((key === 'w' || key === 'arrowup')) {
-        profObj.node.src = "../assets/img/prof-stable.png"
+        profObj.node.src = "./assets/img/prof-stable.png"
     }
 }
 )
